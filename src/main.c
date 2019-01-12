@@ -20,16 +20,19 @@ int main( int argc, char **argv ) {
     }
 
     while(!input.m_quit) {
-        /*
         updateEvent(&input);
         if(input.m_key[SDL_SCANCODE_ESCAPE] == SDL_TRUE) {
             input.m_quit = SDL_TRUE;
         }
         setWindowColor(renderer, gray);
         SDL_RenderPresent(renderer);
-        SDL_Delay(20);
-        */
-       loop_menu(renderer, &input);
+        SDL_Delay(200);
+
+        loop_menu(renderer, &input);
+
+        setWindowColor(renderer, gray);
+        SDL_RenderPresent(renderer);
+        SDL_Delay(200);
     }
     
 
@@ -39,6 +42,7 @@ Quit:
     //if( texture != NULL) SDL_DestroyTexture(texture);
     if(renderer != NULL) SDL_DestroyRenderer(renderer);
     if(window != NULL) SDL_DestroyWindow(window);
+    TTF_Quit();
     SDL_Quit();
 
     return statut;

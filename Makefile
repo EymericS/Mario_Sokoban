@@ -25,7 +25,7 @@ endif
 CC = gcc # Compilateur utilisé
 LD = gcc # Compilateur de lien utilisé
 CFLAGS = -g -Wall -Wextra -pedantic -pedantic-errors -I$(SDL_INC)# $(shell sdl2-config --cflags) # Options pour le compilateur
-LDFLAGS = -L$(SDL_LIB) -lmingw32 -lSDL2main -lSDL2#-lSDL2main -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer #$(shell sdl2-config --libs) # Option pour le compilateur de lien
+LDFLAGS = -L$(SDL_LIB) -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_ttf #-lSDL2main -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer #$(shell sdl2-config --libs) # Option pour le compilateur de lien
 DEPFLAGS = -MM # Option pour la création des fichiers de dépendance
 
 SRC_DIR = src
@@ -36,30 +36,25 @@ BIN_DIR_SYS = $(BIN_DIR)/$(SYS)
 OBJ_DIR_SYS = $(OBJ_DIR)/$(SYS)
 
 APP = app
-EXEC = $(BIN_DIR_SYS)/app
+EXEC = $(BIN_DIR_SYS)/app 
 
 conv = $(subst /,$(SLASH),$(1))
 
 
 all: $(EXEC)
 
-DEPS = $(OBJ_DIR_SYS)/main.o $(OBJ_DIR_SYS)/input.o
+DEPS = $(OBJ_DIR_SYS)/main.o $(OBJ_DIR_SYS)/input.o $(OBJ_DIR_SYS)/menu.o $(OBJ_DIR_SYS)/fonction_SDL.o 
 $(EXEC): $(DEPS) $(BIN_DIR_SYS)/.dirstamp
 	@echo Linking of $(call conv,$(DEPS)) for $(call conv,$@) ...
 	@$(LD) $(DEPS) -o $@ $(LDFLAGS)
 	@echo Linking done !
 
-$(OBJ_DIR_SYS)/main.o: $(SRC_DIR)/main.c $(INC_DIR)/input.h $(INC_DIR)/constantes.h $(OBJ_DIR_SYS)/.dirstamp
-	@echo Building of $(call conv,$@) ...
-	@$(CC) -c $< -o $@ $(CFLAGS)
-	@echo Building done !
+$(OBJ_DIR_SYS)/main.o: $(INC_DIR)/constantes.h $(INC_DIR)/fonction_SDL.h $(INC_DIR)/input.h $(INC_DIR)/menu.h
+$(OBJ_DIR_SYS)/fonction_SDL.o: $(INC_DIR)/fonction_SDL.h
+$(OBJ_DIR_SYS)/input.o: $(INC_DIR)/input.h
+$(OBJ_DIR_SYS)/menu.o: $(INC_DIR)/menu.h $(INC_DIR)/fonction_SDL.h
 
-$(OBJ_DIR_SYS)/input.o: $(SRC_DIR)/input.c $(INC_DIR)/input.h $(OBJ_DIR_SYS)/.dirstamp
-	@echo Building of $(call conv,$@) ...
-	@$(CC) -c $< -o $@ $(CFLAGS)
-	@echo Building done !
-
-$(OBJ_DIR_SYS)/input.o: $(SRC_DIR)/input.c $(INC_DIR)/input.h $(OBJ_DIR_SYS)/.dirstamp
+$(OBJ_DIR_SYS)/%.o: $(SRC_DIR)/%.c $(OBJ_DIR_SYS)/.dirstamp
 	@echo Building of $(call conv,$@) ...
 	@$(CC) -c $< -o $@ $(CFLAGS)
 	@echo Building done !

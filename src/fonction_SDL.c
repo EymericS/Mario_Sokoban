@@ -5,6 +5,10 @@ int init_SDL( SDL_Window **window, SDL_Renderer **renderer, Uint32 init_flags, U
         fprintf(stdout,"Échec de l'initialisation de la SDL (%s)\n",SDL_GetError());
         return -1;
     }
+    if(TTF_Init() != 0) {
+        fprintf(stdout,"Échec de TTF_Init (%s)\n",TTF_GetError());
+        return -1;
+    }
     if(SDL_CreateWindowAndRenderer(WINDOW_WIDTH, WINDOW_HEIGHT, create_flags, window, renderer) != 0) {
         fprintf(stdout,"Échec de SDL_CreateWindowAndRenderer (%s)\n",SDL_GetError());
         return -1;

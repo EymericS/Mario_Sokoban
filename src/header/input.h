@@ -3,9 +3,9 @@
 
 #include "constantes.h"
 
-//enum { CONTEXT_MENU, CONTEXT_GAME}; // Contexte
-
 typedef struct Input Input;
+typedef void (*m_updateEvent)( Input * );
+
 struct Input {
     SDL_Event m_event;
     SDL_bool m_key[SDL_NUM_SCANCODES];
@@ -14,12 +14,15 @@ struct Input {
     int m_x, m_y;
     int m_xRel, m_yRel;
 
-    //int m_context;
     SDL_bool m_quit;
+
+    m_updateEvent updateEvent;
+
 };
 
-Input new_Input( /*int context*/ ) ;
-void updateEvent( Input *this ) ;
+Input new_Input() ;
+
+void function_updateEvent( Input *this ) ;
 void show_mouse( SDL_bool show ) ;
 void trap_mouse( SDL_bool trap ) ;
 

@@ -1,14 +1,13 @@
 #include "header/input.h"
 
 //Constructeur : cree / initialise / renvoie une insance
-Input new_Input( /*int context*/ ) {
+Input new_Input() {
     Input tmp;
     tmp.m_x = 0;
     tmp.m_y = 0;
     tmp.m_xRel = 0;
     tmp.m_yRel = 0;
     tmp.m_quit = SDL_FALSE;
-    //tmp.m_context = CONTEXT_MENU;
 
     for(int i = 0 ; i < SDL_NUM_SCANCODES ; i++) {
         tmp.m_key[i] = SDL_FALSE;
@@ -18,11 +17,13 @@ Input new_Input( /*int context*/ ) {
         tmp.m_mouse[i] = SDL_FALSE;
     }
 
+    tmp.updateEvent = function_updateEvent;
+
     return tmp;
 }
 
 //Gere les evenement
-void updateEvent( Input *this ) {
+void function_updateEvent( Input *this ) {
     //Mouse move init 
     this->m_xRel = 0;
     this->m_yRel = 0;

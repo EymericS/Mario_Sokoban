@@ -20,7 +20,7 @@ int main( int argc, char **argv ) {
     }
 
     while(!input.m_quit) {
-        updateEvent(&input);
+        input.updateEvent(&input);
         if(input.m_key[SDL_SCANCODE_ESCAPE] == SDL_TRUE) {
             input.m_quit = SDL_TRUE;
         }
@@ -47,7 +47,3 @@ Quit:
 
     return statut;
 }
-
-// TODO: MAJ Makefile
-// Test de la fonction loop_menu dan le main
-

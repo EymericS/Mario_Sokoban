@@ -13,22 +13,24 @@ int loop_menu( SDL_Renderer *renderer, Input *input ) {
         goto Quit;
     }
 
-    int iWidth, iHeight;
-    char mot[] = "Niveau";
-    SDL_Surface *tmp = TTF_RenderText_Blended(arial_16, mot, c2);
+    char mot[] = "Une phrase un peut plus longue";
+    //SDL_Surface *tmp = TTF_RenderText_Blended(arial_16, mot, c1);
+    SDL_Surface *tmp = TTF_RenderText_Solid(arial_16, mot, c1);
     SDL_Texture *txt = SDL_CreateTextureFromSurface(renderer, tmp);
-    SDL_QueryTexture(txt, NULL, NULL, &iWidth, &iHeight);
+    SDL_Rect txtRect = { 100, 100, 0, 0};
+    SDL_QueryTexture(txt, NULL, NULL, &txtRect.w, &txtRect.h);
 
 
     while(!input->m_quit) {
-        updateEvent(input);
+        input->updateEvent(input);
         if(input->m_key[SDL_SCANCODE_ESCAPE] == SDL_TRUE) {
             input->m_quit = SDL_TRUE;
         }
 
         if(c ==1) {
-            setWindowColor(renderer, c1);
-            SDL_RenderCopy(renderer, txt, NULL, NULL);
+            setWindowColor(renderer, c2);
+            SDL_RenderClear(renderer);
+            SDL_RenderCopy(renderer, txt, NULL, &txtRect);
             //c = 2;
         }
         else {

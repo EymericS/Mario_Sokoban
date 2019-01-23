@@ -33,4 +33,10 @@
 enum { HAUT, BAS, GAUCHE, DROITE};
 enum { VIDE, MUR, CAISSE, CAISSE_OK, OBJECTIF, MARIO};
 
+extern const SDL_Color COLOR_GRAY;
+extern const SDL_Color COLOR_RED;
+
+TTF_Font *ARIAL_16;
+
+
 #endif

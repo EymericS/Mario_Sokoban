@@ -4,6 +4,7 @@
 #include "constantes.h"
 #include "input.h"
 #include "fonction_SDL.h"
+#include "fonction_texture.h"
 
 int loop_menu( SDL_Renderer *renderer, Input *input ) ;
 

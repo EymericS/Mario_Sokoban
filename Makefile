@@ -43,7 +43,7 @@ conv = $(subst /,$(SLASH),$(1))
 
 all: $(EXEC)
 
-DEPS = $(OBJ_DIR_SYS)/main.o $(OBJ_DIR_SYS)/input.o $(OBJ_DIR_SYS)/menu.o $(OBJ_DIR_SYS)/fonction_SDL.o 
+DEPS = $(OBJ_DIR_SYS)/main.o $(OBJ_DIR_SYS)/input.o $(OBJ_DIR_SYS)/menu.o $(OBJ_DIR_SYS)/fonction_SDL.o $(OBJ_DIR_SYS)/fonction_texture.o
 $(EXEC): $(DEPS) $(BIN_DIR_SYS)/.dirstamp
 	@echo Linking of $(call conv,$(DEPS)) for $(call conv,$@) ...
 	@$(LD) $(DEPS) -o $@ $(LDFLAGS)
@@ -53,6 +53,7 @@ $(OBJ_DIR_SYS)/main.o: $(INC_DIR)/constantes.h $(INC_DIR)/fonction_SDL.h $(INC_D
 $(OBJ_DIR_SYS)/fonction_SDL.o: $(INC_DIR)/fonction_SDL.h
 $(OBJ_DIR_SYS)/input.o: $(INC_DIR)/input.h
 $(OBJ_DIR_SYS)/menu.o: $(INC_DIR)/menu.h $(INC_DIR)/fonction_SDL.h
+$(OBJ_DIR_SYS)/fonction_texture.o: $(INC_DIR)/fonction_texture.h $(INC_DIR)/constantes.h
 
 $(OBJ_DIR_SYS)/%.o: $(SRC_DIR)/%.c $(OBJ_DIR_SYS)/.dirstamp
 	@echo Building of $(call conv,$@) ...
